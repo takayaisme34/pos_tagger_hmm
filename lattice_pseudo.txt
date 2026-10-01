@@ -1,0 +1,61 @@
+function build_lattice(input_string):
+    n = length(input_string)
+
+    # lattice[i] = list of nodes ending at position i
+    lattice = array of empty lists, size n+1
+
+    # Special boundary nodes
+    BOS = Node(surface="BOS", pos=0)
+    EOS = Node(surface="EOS", pos=n)
+
+    lattice[0].append(BOS)
+
+    # Step 1: Dictionary lookup — enumerate all candidate nodes
+    for start in 0..n-1:
+        for each entry in dictionary.lookup(input_string, start):
+            # entry = (surface, pos_tag, reading, cost, ...)
+            end = start + length(entry.surface)
+            node = Node(
+                surface  = entry.surface,
+                pos      = entry.pos_tag,
+                reading  = entry.reading,
+                end_cost = entry.word_cost,   # unigram cost
+                start    = start,
+                end      = end
+            )
+            lattice[end].append(node)
+
+        # Unknown word handler (fallback)
+        if no entry found starting at start:
+            node = unknown_word_node(input_string[start])
+            lattice[node.end].append(node)
+
+    lattice[n].append(EOS)
+
+    # Step 2: Viterbi — forward pass
+    # For each node, compute the minimum cumulative cost
+    for end in 1..n:
+        for node in lattice[end]:
+            node.min_cost = INFINITY
+            node.prev     = None
+
+            for prev_node in lattice[node.start]:
+                # Bigram (connection) cost between prev and current
+                # — this encodes the 1st-order Markov assumption
+                conn_cost = connection_table[prev_node.pos][node.pos]
+
+                total = prev_node.min_cost + conn_cost + node.end_cost
+
+                if total < node.min_cost:
+                    node.min_cost = total
+                    node.prev     = prev_node
+
+    # Step 3: Backtrack from EOS to BOS
+    path = []
+    node = EOS
+    while node is not BOS:
+        path.append(node)
+        node = node.prev
+    path.reverse()
+
+    return path  # optimal segmentation + POS sequence
