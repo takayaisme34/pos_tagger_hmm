@@ -26,15 +26,22 @@ def parse_knp_pos(text):
         # Morpheme
         elif line:
             parts = line.split()
-            #print(parts)
             surface = parts[0]
             reading = parts[1]
+            lemma = parts[2]
             pos = parts[3]
+            pos_subcategory = parts[4]
+            conjugation_type = parts[5]
+            conjugation_form = parts[6]
 
             current_sentence.append({
                 "word": surface,
                 "reading": reading,
-                "pos": pos
+                "lemma":lemma,
+                "pos": pos,
+                "pos_subcategory": pos_subcategory,
+                "conjugation_type": conjugation_type,
+                "conjugation_form": conjugation_form
             })
 
     return sentences
@@ -78,3 +85,8 @@ def iterate_knp_sentences():
 
                 for sentence in sentences:
                     yield sentence
+
+
+
+if __name__ == "__main__":
+    sentences = list(iterate_knp_sentences())
