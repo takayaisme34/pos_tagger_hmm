@@ -69,6 +69,9 @@ params = {
 def score_emission(params, token):
     pass
 
+def score_transition(params, node, prev_node):
+    pass
+
 token = ('おり', 'おり', 'おる', '接尾辞', '動詞性接尾辞', '子音動詞ラ行', '基本連用形')
 
 print(lemmas)
@@ -102,10 +105,10 @@ def build_lattice(x):
             })
     return lattice
 
-def calculate_log_z(lattice, scores):
+def calculate_log_z(params, lattice, scores):
     for end_position in lattice:                      # in order of end position
         for node in end_position:
-            unigram_score = None
+            unigram_score = score_emission(params,)
             if node["start"] == 0:
                 node["alpha"] = s                 # predecessor is BOS, log α(BOS) = 0
             else:

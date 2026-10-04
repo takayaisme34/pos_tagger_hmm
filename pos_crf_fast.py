@@ -11,7 +11,7 @@ from tqdm import tqdm
 
 
 kwdlc_path = os.path.join("KWDLC-1.0", "kwdlc.jsonl")
-if os.path.exists():
+if os.path.exists(kwdlc_path):
     kwdlc = []
     with open(kwdlc_path, "r", encoding="utf-8") as f:
         for line in f:
