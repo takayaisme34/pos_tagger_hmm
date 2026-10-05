@@ -163,6 +163,7 @@ def round_up(n, m=16):                          # fewer distinct shapes -> fewer
 
 
 if __name__ == "__main__":
+    import pickle
     # ---- preprocess once: lattices and gold paths as padded arrays ----
     data = []
     for s in tqdm(sentences, desc="building lattices"):
@@ -203,5 +204,21 @@ if __name__ == "__main__":
             total += float(loss)
         print(f"epoch {epoch}  loss {total / len(batches):.4f}")
 
+    crf_index = {
+        "vocab":{str(i):list(vocab) for vocab,i in vocab2i.items()},
+        "surface":surface2ids,
+        "max_len":max_len,
+        "lemma":lemma2i,
+        "pos":pos2i,
+        "pos_subcat":pos_subcat2i,
+        "conj_type":conj_type2i,
+        "conj_form":conj_form2i
+    }
 
+    with open("crf_index.json", "w", encoding="utf-8") as f:
+        json.dump(crf_index, f)
+
+    with open("crf_model.pkl", "wb") as f:
+        pickle.dump(params, f)
+    
     print(viterbi(params, "私は東京都に住む大学院生だ。"))

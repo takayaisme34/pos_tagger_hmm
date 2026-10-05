@@ -95,11 +95,13 @@ if __name__ == "__main__":
             tokens.add((t["pos"], t["word"], t["reading"]))
 
     dic, max_len = build_dictionary(tokens)
-    lattice = build_lattice("あの店は辛いカレーで有名だ", dic, max_len)
+    lattice = build_lattice("私は東大阪に住む大学院生です。", dic, max_len)
 
 
     #for i, nodes in enumerate(lattice):
     #    print(i, [(nd["word"], nd["pos"], nd["start"]) for nd in nodes])
     tokenized = hmm_viterbi(lattice)
+    for t in tokenized:
+        print(t["word"], t["reading"], sep="\t")
 
     print(tokenized)
