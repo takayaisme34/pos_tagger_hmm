@@ -1,0 +1,18 @@
+epoch 2 train loss 5.0814
+epoch 2 test loss 4.8345                                     
+epoch 3 train loss 5.0852                                    
+epoch 3 test loss 4.7482                                     
+epoch 4 train loss 5.0958                                    
+epoch 4 test loss 4.9363                                     
+Test loss did not improve. 
+Patience: 1/3
+epoch 5 train loss 4.9650                                    
+epoch 5 test loss 4.8286                                     
+Test loss did not improve. 
+Patience: 2/3
+epoch 6 train loss 5.0001                                    
+epoch 6 test loss 4.9565                                     
+Test loss did not improve. 
+Patience: 3/3
+Early stopping triggered at epoch 6.
+[('私', 'ワタシ', '私', '名詞', '代名詞', '', ''), ('は', 'ハ', 'は', '助詞', '係助詞', '', ''), ('東京', 'トウキョウ', '東京', '名詞', '固有名詞', '', ''), ('都', 'ト', '都', '名詞', '一般', '', ''), ('に', 'ニ', 'に', '助詞', '格助詞', '', ''), ('住む', 'スム', '住む', '動詞', '自立', '五段・マ行', '基本形'), ('大学', 'ダイガク', '大学', '名詞', '一般', '', ''), ('院生', 'インセイ', '院生', '名詞', '一般', '', ''), ('だ', 'ダ', 'だ', '助動詞', '', '特殊・ダ', '基本形'), ('。', '。', '。', '記号', '句点', '', '')]
